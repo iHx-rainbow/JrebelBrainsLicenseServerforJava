@@ -32,8 +32,6 @@ on:
 env:
   # platforms: linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
   image: ihxrainbow/jrebel-license-server
-  latest_tag: latest
-  number_tag: ${{ github.run_number }}
 
 jobs:
   build-and-publish:
@@ -62,6 +60,18 @@ jobs:
       # - name: Push Docker image
       #   run: docker push ihxrainbow/jrebel-license-server:latest
 
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.image }}
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=tag
+            type=ref,event=pr
+
+
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -75,9 +85,10 @@ jobs:
           context: .
           push: true
           # tags: ${{ env.image }}:${{ env.latest_tag }}
-          tags: >-
-            ${{ env.image }}:${{ env.latest_tag }},
-            ${{ env.image }}.${{ github.sha }}
+          # tags: >-
+          #   ${{ env.image }}:${{ env.latest_tag }},
+          #   ${{ env.image }}:${{ env.number_tag }}
+          tags: ${{ steps.meta.outputs.tags }}
           # platforms: ${{ env.platforms }}
           # cache-from: type=gha
           # cache-to: type=gha,mode=max
