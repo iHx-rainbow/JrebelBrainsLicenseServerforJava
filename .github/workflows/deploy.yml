@@ -32,7 +32,8 @@ on:
 env:
   # platforms: linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
   image: ihxrainbow/jrebel-license-server
-  tag: latest
+  latest_tag: latest
+  number_tag: ${{ github.run_number }}
 
 jobs:
   build-and-publish:
@@ -73,10 +74,10 @@ jobs:
         with:
           context: .
           push: true
-          # tags: ${{ env.image }}:${{ env.tag }}
+          # tags: ${{ env.image }}:${{ env.latest_tag }}
           tags: >-
-              ${{ env.image }}:${{ env.tag }},
-              ${{ env.image }}:$(date +%s)
+            ${{ env.image }}:${{ env.latest_tag }},
+            ${{ env.image }}.${{ github.sha }}
           # platforms: ${{ env.platforms }}
           # cache-from: type=gha
           # cache-to: type=gha,mode=max
