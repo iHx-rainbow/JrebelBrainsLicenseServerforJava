@@ -249,7 +249,7 @@ public class MainServer extends AbstractHandler {
         html += "<p>JetBrains Activation address was: <span style='color:red'>http://localhost:" + port + "/";
         html += "<p>JRebel 7.1 and earlier version Activation address was: <span style='color:red'>http://localhost:" + port + "/{tokenname}</span>, with any email.";
         html += "<p>JRebel 2018.1 and later version Activation address was: http://localhost:" + port + "/{guid}(eg:<span style='color:red'>http://localhost:" + port + "/"+ UUID.randomUUID().toString()+"</span>), with any email.";
-
+        html += "<p>generate GUID online address: <a href='https://www.guidgen.com' target='_blank'>https://www.guidgen.com</a>";
         response.getWriter().println(html);
 
     }
