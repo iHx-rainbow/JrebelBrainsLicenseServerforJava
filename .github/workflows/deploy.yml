@@ -10,7 +10,7 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: ["master"]
+    branches: ["master", "develop"]
     # # 指定路径或者文件，当此路径下的文件发生变化时，执行此 action
     # paths:
     #   - 'index.html'
